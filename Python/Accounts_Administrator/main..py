@@ -1,4 +1,4 @@
-from tkinter import *
+ifrom tkinter import *
 from tkinter import messagebox
 import random
 import json
@@ -109,7 +109,7 @@ entry_website.focus()
 
 entry_email = Entry(width=50)
 entry_email.grid(row=2,column=1, columnspan=2)
-entry_email.insert(0, "luislayja1@gmail.com")
+entry_email.insert(0, "email@gmail.com")
 
 
 entry_password = Entry(width=31)
