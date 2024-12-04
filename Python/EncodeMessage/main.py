@@ -6,7 +6,7 @@ alphabet = [
 ]
 
 def decision():
-    decision = str(input("Type 'encode' to encrypt, type 'decode' to decrypt:"))
+    decision = str(input("Type 'encode' to encrypt, type 'decode' to decrypt :"))
 
     if decision == "encode":
         name, location = nameAndLocation()
