@@ -16,7 +16,7 @@ class Environment:
 
 
     def create_environment(self):
-        return [["_" if random.randint(0, 10) > self.difficulty else "O" for i in range(self.width)] for i in range(self.height)]
+        return [["_" if self.rng.randint(0, 10) > self.difficulty else "O" for i in range(self.width)] for i in range(self.height)]
     
     def show_environment(self):
         for layer in self.environment:
@@ -25,7 +25,7 @@ class Environment:
 
     def _place_agent(self):
         # It checks to not overwrite any obstacle or goal
-        if not self.agent_position_x or not self.agent_position_y:
+        if self.agent_position_x is None or self.agent_position_y is None:
             self.agent_position_y = self.rng.randint(0, self.height - 1)
             self.agent_position_x = self.rng.randint(0, self.width - 1)
 
@@ -41,7 +41,7 @@ class Environment:
 
     def _place_goal(self):
         # It checks to not overwrite any obstacle or agent
-        if not self.goal_position_x or not self.goal_position_y:
+        if self.goal_position_x is None or self.goal_position_y is None:
             self.goal_position_y = self.rng.randint(0, self.height - 1)
             self.goal_position_x = self.rng.randint(0, self.width - 1)
 
@@ -51,6 +51,6 @@ class Environment:
                 self.goal_position_y = self.rng.randint(0, self.height - 1)
                 self.goal_position_x = self.rng.randint(0, self.width - 1)
         
-        self.environment[self.goal_position_y][self.goal_position_x] = "M"
+        self.environment[self.goal_position_y][self.goal_position_x] = "G"
         return
     
