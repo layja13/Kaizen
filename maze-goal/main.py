@@ -27,7 +27,7 @@ POP_SIZE = 100
 NUM_GENES = 20
 NUM_GENERATIONS = 500
 
-#"""
+"""
 # Simple Genetic Algorithm
 sga = SimpleGeneticAlgorithm(environment=environment, mutation_rate=MUTATION_RATE, pop_size=POP_SIZE, num_genes=NUM_GENES, num_generations=NUM_GENERATIONS)
 #sga.show_poblation(interpretable=True)
@@ -42,7 +42,7 @@ sga.show_interpretable_genome(solution)
 
 plt.plot([generation for generation in range(NUM_GENERATIONS)], sga.fitness_evolution_per_generation)
 plt.show()
-#"""
+"""
 
 # ---------------------------------------------------------------------
 # Microbial Genetic Algorithm
@@ -50,7 +50,7 @@ plt.show()
 SHARING_GENES_RATE = 0.3
 NUM_TOURNAMENTS = 2000
 
-"""
+#"""
 mga = MicrobialGeneticAlgorithm(environment=environment, mutation_rate=MUTATION_RATE, pop_size=POP_SIZE, num_genes=NUM_GENES, num_tournaments=NUM_TOURNAMENTS, sharing_genes_rate=SHARING_GENES_RATE)
 
 solution = mga.evolve()
@@ -62,5 +62,5 @@ mga.show_interpretable_genome(solution)
 
 plt.plot([tournament for tournament in range(NUM_TOURNAMENTS)], mga.fitness_evolution_per_generation)
 plt.show()
-"""
+#"""
 

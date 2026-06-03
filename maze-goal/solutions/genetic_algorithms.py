@@ -1,19 +1,13 @@
+from maze_solver import MazeSolverBase
 import random
 
 
-class GeneticAlgorithmBase:
+class GeneticAlgorithmBase(MazeSolverBase):
     def __init__(self, environment, mutation_rate, pop_size, num_genes):
-        self.environment = environment
+        super().__init__(environment)
         self.mutation_rate = mutation_rate
         self.pop_size = pop_size
         self.num_genes = num_genes
-        self.actions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
-        self.actions_interpretable = {
-            (-1, 0): "UP",
-            (1, 0): "DOWN",
-            (0, 1): "RIGHT",
-            (0, -1): "LEFT",
-        }
         self.win = False
         self.fitness_evolution_per_generation = []
         self.reset_agent_position()
@@ -88,52 +82,20 @@ class GeneticAlgorithmBase:
 
     def _evaluate_candidate(self, candidate):
         steps = 0
-        minimum_distance = self._manhattan_distance()
+        minimum_distance = self.manhattan_distance()
 
         for gen in candidate:
-            self._move(gen)
+            self.move(gen)
             steps += 1
-            minimum_distance = min(minimum_distance, self._manhattan_distance())
+            minimum_distance = min(minimum_distance, self.manhattan_distance())
 
-            if self._game_on() == False:
+            if self.game_on() == False:
                 return self._fitness(steps=steps, min_distance=minimum_distance, win=False), steps
             elif self.environment.environment[self.agent_position_y][self.agent_position_x] == "G":
                 self.win = True
                 return self._fitness(steps=steps, min_distance=minimum_distance, win=True), steps
 
         return self._fitness(steps=steps, min_distance=minimum_distance, win=None), steps
-
-
-    def _move(self, gen):
-        dy = gen[0]
-        dx = gen[1]
-
-        self.agent_position_y += dy
-        self.agent_position_x += dx
-
-
-    def _game_on(self):
-        if (
-            self.agent_position_y < 0
-            or self.agent_position_x < 0
-            or self.agent_position_y > self.environment.height - 1
-            or self.agent_position_x > self.environment.width - 1
-            or self.environment.environment[self.agent_position_y][self.agent_position_x] == "O"
-        ):
-            return False
-
-        return True
-
-
-    def _manhattan_distance(self):
-        return abs(self.environment.goal_position_y - self.agent_position_y) + abs(
-            self.environment.goal_position_x - self.agent_position_x
-        )
-
-
-    def reset_agent_position(self):
-        self.agent_position_y = self.environment.agent_position_y
-        self.agent_position_x = self.environment.agent_position_x
 
 
     def show_population(self, interpretable=False):
