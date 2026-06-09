@@ -16,7 +16,7 @@ DIFFICULTY = 3
 
 # Environment
 environment = Environment(width=WIDTH, height=HEIGHT, seed=SEED, difficulty=DIFFICULTY, agent_position_x=AGENT_POSITION_X, agent_position_y=AGENT_POSITION_Y, goal_position_x=GOAL_POSITION_X, goal_position_y=GOAL_POSITION_Y)
-environment.show_environment()
+#environment.show_environment()
 
 
 # ---------------------------------------------------------------------
@@ -50,7 +50,7 @@ plt.show()
 SHARING_GENES_RATE = 0.3
 NUM_TOURNAMENTS = 2000
 
-#"""
+"""
 mga = MicrobialGeneticAlgorithm(environment=environment, mutation_rate=MUTATION_RATE, pop_size=POP_SIZE, num_genes=NUM_GENES, num_tournaments=NUM_TOURNAMENTS, sharing_genes_rate=SHARING_GENES_RATE)
 
 solution = mga.evolve()
@@ -62,5 +62,55 @@ mga.show_interpretable_genome(solution)
 
 plt.plot([tournament for tournament in range(NUM_TOURNAMENTS)], mga.fitness_evolution_per_generation)
 plt.show()
-#"""
+"""
 
+# ---------------------------------------------------------------------
+# Breath First-Search 
+
+"""
+from solutions.uniformed_strategies import BFS
+ 
+bfs = BFS(environment=environment, show_movements=True)
+solution = bfs.solution()
+
+if solution[0]:
+    print(f"Goal found: {solution[0]} \nInitial Position: {solution[1]} \nFinal Position: {solution[2]}")
+"""
+
+# ---------------------------------------------------------------------
+# Depth First-Search 
+
+"""
+from solutions.uniformed_strategies import DFS
+ 
+dfs = DFS(environment=environment, show_movements=True)
+solution = dfs.solution()
+
+if solution[0]:
+    print(f"Goal found: {solution[0]} \nInitial Position: {solution[1]} \nFinal Position: {solution[2]}")
+"""
+
+# ---------------------------------------------------------------------
+# DIJKSTRA (Uniform-Cost Search)
+
+"""
+from solutions.uniformed_strategies import DIJKSTRA
+ 
+dijkstra = DIJKSTRA(environment=environment, show_movements=True)
+solution = dijkstra.solution()
+
+if solution[0]:
+    print(f"Goal found: {solution[0]} \nInitial Position: {solution[1]} \nFinal Position: {solution[2]}")
+"""
+
+# ---------------------------------------------------------------------
+# DIJKSTRA (Uniform-Cost Search)
+
+#"""
+from solutions.uniformed_strategies import IDS
+
+ids = IDS(environment=environment, show_movements=True)
+solution = ids.solution(max_depth=15)
+
+print(solution)
+#"""
