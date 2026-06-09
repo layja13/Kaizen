@@ -83,19 +83,19 @@ class DIJKSTRA(MazeSolverBase):  # Uniform-cost-search
         self.environment = environment
         self.show_movements = show_movements
         self.starting_position = (self.agent_position_y, self.agent_position_x)
-        self.visited = set()
-        self.count = 0
-        
+                
 
     def solution(self):
         import heapq
-        stack = []
+        frontier = []
+        count = 0
+        visited = {self.starting_position}
 
-        heapq.heappush(stack, (0, self.count, (self.agent_position_y, self.agent_position_x)))
-        self.count += 1
+        heapq.heappush(frontier, (0, count, (self.agent_position_y, self.agent_position_x)))
+        count += 1
 
-        while stack:
-            cost, _, position = heapq.heappop(stack)
+        while frontier:
+            cost, _, position = heapq.heappop(frontier)
             y = position[0]
             x = position[1]
 
@@ -113,11 +113,10 @@ class DIJKSTRA(MazeSolverBase):  # Uniform-cost-search
                     new_y = y + dy
                     new_x = x + dx
 
-                    if (new_y, new_x) not in self.visited:
-                        heapq.heappush(stack, (cost + 1, self.count, (new_y, new_x)))
-                        self.count += 1
-
-                        self.visited.add((new_y, new_x))
+                    if (new_y, new_x) not in visited:
+                        heapq.heappush(frontier, (cost + 1, count, (new_y, new_x)))
+                        count += 1
+                        visited.add((new_y, new_x))
                     
         return False, False, False
 

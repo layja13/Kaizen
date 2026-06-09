@@ -106,11 +106,23 @@ if solution[0]:
 # ---------------------------------------------------------------------
 # DIJKSTRA (Uniform-Cost Search)
 
-#"""
+"""
 from solutions.uniformed_strategies import IDS
 
 ids = IDS(environment=environment, show_movements=True)
 solution = ids.solution(max_depth=15)
+
+print(solution)
+"""
+
+# ---------------------------------------------------------------------
+# Greedy Best Search First
+
+#"""
+from solutions.informed_heuristics_strategies import GreedySearch
+
+greedy = GreedySearch(environment=environment, show_movements=True)
+solution = greedy.solution()
 
 print(solution)
 #"""
