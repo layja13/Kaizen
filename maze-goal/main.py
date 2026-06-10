@@ -74,7 +74,7 @@ bfs = BFS(environment=environment, show_movements=True)
 solution = bfs.solution()
 
 if solution[0]:
-    print(f"Goal found: {solution[0]} \nInitial Position: {solution[1]} \nFinal Position: {solution[2]}")
+    print(f"Goal found: {solution[0]} \nInitial Position: {solution[1]} \nFinal Position: {solution[2]}\n Steps Taken: {solution[3]}")
 """
 
 # ---------------------------------------------------------------------
@@ -87,7 +87,7 @@ dfs = DFS(environment=environment, show_movements=True)
 solution = dfs.solution()
 
 if solution[0]:
-    print(f"Goal found: {solution[0]} \nInitial Position: {solution[1]} \nFinal Position: {solution[2]}")
+    print(f"Goal found: {solution[0]} \nInitial Position: {solution[1]} \nFinal Position: {solution[2]}\nSteps Taken: {solution[3]}")
 """
 
 # ---------------------------------------------------------------------
@@ -100,11 +100,11 @@ dijkstra = DIJKSTRA(environment=environment, show_movements=True)
 solution = dijkstra.solution()
 
 if solution[0]:
-    print(f"Goal found: {solution[0]} \nInitial Position: {solution[1]} \nFinal Position: {solution[2]}")
+    print(f"Goal found: {solution[0]} \nInitial Position: {solution[1]} \nFinal Position: {solution[2]}\nSteps taken: {solution[3]}")
 """
 
 # ---------------------------------------------------------------------
-# DIJKSTRA (Uniform-Cost Search)
+# Iterative Deepening Search
 
 """
 from solutions.uniformed_strategies import IDS
@@ -118,11 +118,25 @@ print(solution)
 # ---------------------------------------------------------------------
 # Greedy Best Search First
 
-#"""
+"""
 from solutions.informed_heuristics_strategies import GreedySearch
 
 greedy = GreedySearch(environment=environment, show_movements=True)
 solution = greedy.solution()
 
 print(solution)
+"""
+
+# ---------------------------------------------------------------------
+# A Start
+
 #"""
+from solutions.informed_heuristics_strategies import ASearch
+
+a_star = ASearch(environment=environment, show_movements=True)
+solution = a_star.solution()
+
+print(solution)
+
+#"""
+

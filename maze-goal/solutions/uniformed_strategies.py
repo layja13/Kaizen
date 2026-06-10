@@ -11,15 +11,18 @@ class BFS(MazeSolverBase):
 
         queue = deque([(self.agent_position_y, self.agent_position_x)])
         visited = {(self.agent_position_y, self.agent_position_x)}
+        expanded_nodes = -1
 
         while queue:
             current_position = queue.popleft()
             y = current_position[0]
             x = current_position[1]
+
+            expanded_nodes += 1
             
             if self.game_on_abstract(y, x):    
                 if self.environment.environment[y][x] == "G":
-                    return True, self.starting_position, (y, x)
+                    return True, self.starting_position, (y, x), expanded_nodes
                 
                 if self.show_movements:
                     self.environment.environment[y][x] = "X"
@@ -49,14 +52,16 @@ class DFS(MazeSolverBase):
     def solution(self):
         stack = [self.starting_position]
         visited = {(self.agent_position_y, self.agent_position_x)}
+        expanded_nodes = -1
 
         while stack:
             current_position = stack.pop()
             y, x = current_position
+            expanded_nodes += 1
 
             if self.game_on_abstract(y, x):
                 if self.environment.environment[y][x] == "G":
-                    return True, self.starting_position, (y, x)
+                    return True, self.starting_position, (y, x), expanded_nodes
 
                 if self.show_movements:
                     self.environment.environment[y][x] = "X"
@@ -88,8 +93,9 @@ class DIJKSTRA(MazeSolverBase):  # Uniform-cost-search
     def solution(self):
         import heapq
         frontier = []
-        count = 0
         visited = {self.starting_position}
+        count = 0
+        expanded_nodes = -1
 
         heapq.heappush(frontier, (0, count, (self.agent_position_y, self.agent_position_x)))
         count += 1
@@ -98,10 +104,11 @@ class DIJKSTRA(MazeSolverBase):  # Uniform-cost-search
             cost, _, position = heapq.heappop(frontier)
             y = position[0]
             x = position[1]
+            expanded_nodes += 1
 
             if self.game_on_abstract(y, x):
                 if self.environment.environment[y][x] == "G":
-                    return True, self.starting_position, (y, x)
+                    return True, self.starting_position, (y, x), expanded_nodes
                 
                 if self.show_movements:
                     self.environment.environment[y][x] = "X"
