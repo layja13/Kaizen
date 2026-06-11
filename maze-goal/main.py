@@ -14,10 +14,6 @@ GOAL_POSITION_X = 8
 GOAL_POSITION_Y = 8
 DIFFICULTY = 3
 
-# Environment
-environment = Environment(width=WIDTH, height=HEIGHT, seed=SEED, difficulty=DIFFICULTY, agent_position_x=AGENT_POSITION_X, agent_position_y=AGENT_POSITION_Y, goal_position_x=GOAL_POSITION_X, goal_position_y=GOAL_POSITION_Y)
-#environment.show_environment()
-
 
 # ---------------------------------------------------------------------
 # Simple Genetic Algorithm
@@ -29,6 +25,11 @@ NUM_GENERATIONS = 500
 
 """
 # Simple Genetic Algorithm
+
+# Environment
+environment = Environment(width=WIDTH, height=HEIGHT, seed=SEED, difficulty=DIFFICULTY, agent_position_x=AGENT_POSITION_X, agent_position_y=AGENT_POSITION_Y, goal_position_x=GOAL_POSITION_X, goal_position_y=GOAL_POSITION_Y)
+#environment.show_environment()
+
 sga = SimpleGeneticAlgorithm(environment=environment, mutation_rate=MUTATION_RATE, pop_size=POP_SIZE, num_genes=NUM_GENES, num_generations=NUM_GENERATIONS)
 #sga.show_poblation(interpretable=True)
 
@@ -51,6 +52,10 @@ SHARING_GENES_RATE = 0.3
 NUM_TOURNAMENTS = 2000
 
 """
+# Environment
+environment = Environment(width=WIDTH, height=HEIGHT, seed=SEED, difficulty=DIFFICULTY, agent_position_x=AGENT_POSITION_X, agent_position_y=AGENT_POSITION_Y, goal_position_x=GOAL_POSITION_X, goal_position_y=GOAL_POSITION_Y)
+#environment.show_environment()
+
 mga = MicrobialGeneticAlgorithm(environment=environment, mutation_rate=MUTATION_RATE, pop_size=POP_SIZE, num_genes=NUM_GENES, num_tournaments=NUM_TOURNAMENTS, sharing_genes_rate=SHARING_GENES_RATE)
 
 solution = mga.evolve()
@@ -68,6 +73,10 @@ plt.show()
 # Breath First-Search 
 
 """
+# Environment
+environment = Environment(width=WIDTH, height=HEIGHT, seed=SEED, difficulty=DIFFICULTY, agent_position_x=AGENT_POSITION_X, agent_position_y=AGENT_POSITION_Y, goal_position_x=GOAL_POSITION_X, goal_position_y=GOAL_POSITION_Y)
+#environment.show_environment()
+
 from solutions.uniformed_strategies import BFS
  
 bfs = BFS(environment=environment, show_movements=True)
@@ -81,6 +90,10 @@ if solution[0]:
 # Depth First-Search 
 
 """
+# Environment
+environment = Environment(width=WIDTH, height=HEIGHT, seed=SEED, difficulty=DIFFICULTY, agent_position_x=AGENT_POSITION_X, agent_position_y=AGENT_POSITION_Y, goal_position_x=GOAL_POSITION_X, goal_position_y=GOAL_POSITION_Y)
+#environment.show_environment()
+
 from solutions.uniformed_strategies import DFS
  
 dfs = DFS(environment=environment, show_movements=True)
@@ -94,6 +107,10 @@ if solution[0]:
 # DIJKSTRA (Uniform-Cost Search)
 
 """
+# Environment
+environment = Environment(width=WIDTH, height=HEIGHT, seed=SEED, difficulty=DIFFICULTY, agent_position_x=AGENT_POSITION_X, agent_position_y=AGENT_POSITION_Y, goal_position_x=GOAL_POSITION_X, goal_position_y=GOAL_POSITION_Y)
+#environment.show_environment()
+
 from solutions.uniformed_strategies import DIJKSTRA
  
 dijkstra = DIJKSTRA(environment=environment, show_movements=True)
@@ -107,6 +124,10 @@ if solution[0]:
 # Iterative Deepening Search
 
 """
+# Environment
+environment = Environment(width=WIDTH, height=HEIGHT, seed=SEED, difficulty=DIFFICULTY, agent_position_x=AGENT_POSITION_X, agent_position_y=AGENT_POSITION_Y, goal_position_x=GOAL_POSITION_X, goal_position_y=GOAL_POSITION_Y)
+#environment.show_environment()
+
 from solutions.uniformed_strategies import IDS
 
 ids = IDS(environment=environment, show_movements=True)
@@ -119,6 +140,10 @@ print(solution)
 # Greedy Best Search First
 
 """
+# Environment
+environment = Environment(width=WIDTH, height=HEIGHT, seed=SEED, difficulty=DIFFICULTY, agent_position_x=AGENT_POSITION_X, agent_position_y=AGENT_POSITION_Y, goal_position_x=GOAL_POSITION_X, goal_position_y=GOAL_POSITION_Y)
+#environment.show_environment()
+
 from solutions.informed_heuristics_strategies import GreedySearch
 
 greedy = GreedySearch(environment=environment, show_movements=True)
@@ -130,13 +155,33 @@ print(solution)
 # ---------------------------------------------------------------------
 # A Start
 
-#"""
-from solutions.informed_heuristics_strategies import ASearch
+"""
+# Environment
+environment = Environment(width=WIDTH, height=HEIGHT, seed=SEED, difficulty=DIFFICULTY, agent_position_x=AGENT_POSITION_X, agent_position_y=AGENT_POSITION_Y, goal_position_x=GOAL_POSITION_X, goal_position_y=GOAL_POSITION_Y)
+#environment.show_environment()
 
-a_star = ASearch(environment=environment, show_movements=True)
+from solutions.informed_heuristics_strategies import AStar
+
+a_star = AStar(environment=environment, show_movements=True)
 solution = a_star.solution()
 
 print(solution)
 
-#"""
+"""
 
+# ---------------------------------------------------------------------
+# Iterative Deepening A Star (IDA)
+
+"""
+# Environment
+environment = Environment(width=WIDTH, height=HEIGHT, seed=SEED, difficulty=DIFFICULTY, agent_position_x=AGENT_POSITION_X, agent_position_y=AGENT_POSITION_Y, goal_position_x=GOAL_POSITION_X, goal_position_y=GOAL_POSITION_Y)
+#environment.show_environment()
+
+from solutions.informed_heuristics_strategies import IDA
+
+ida = IDA(environment=environment, show_movements=True)
+solution = ida.solution()
+
+print(solution)
+
+"""

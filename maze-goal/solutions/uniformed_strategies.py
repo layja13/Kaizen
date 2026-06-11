@@ -93,7 +93,7 @@ class DIJKSTRA(MazeSolverBase):  # Uniform-cost-search
     def solution(self):
         import heapq
         frontier = []
-        visited = {self.starting_position}
+        visited = {self.starting_position:0}
         count = 0
         expanded_nodes = -1
 
@@ -120,10 +120,10 @@ class DIJKSTRA(MazeSolverBase):  # Uniform-cost-search
                     new_y = y + dy
                     new_x = x + dx
 
-                    if (new_y, new_x) not in visited:
+                    if (new_y, new_x) not in visited or cost + 1 < visited[(new_y, new_x)]:
                         heapq.heappush(frontier, (cost + 1, count, (new_y, new_x)))
                         count += 1
-                        visited.add((new_y, new_x))
+                        visited[(new_y, new_x)] = cost + 1
                     
         return False, False, False
 
