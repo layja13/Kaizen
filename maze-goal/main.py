@@ -182,6 +182,25 @@ from solutions.informed_heuristics_strategies import IDA
 ida = IDA(environment=environment, show_movements=True)
 solution = ida.solution()
 
-print(solution)
+print(f"Goal found: {solution[0]}\nSteps Taken: {solution[1]}\nGoal Coordenates: {solution[2]}\nExpanded Nodes: {ida.expanded_nodes}")
 
 """
+
+
+# ---------------------------------------------------------------------
+# Recursive Best-first Search (RBFS)
+
+#"""
+# Environment
+environment = Environment(width=WIDTH, height=HEIGHT, seed=SEED, difficulty=DIFFICULTY, agent_position_x=AGENT_POSITION_X, agent_position_y=AGENT_POSITION_Y, goal_position_x=GOAL_POSITION_X, goal_position_y=GOAL_POSITION_Y)
+#environment.show_environment()
+
+from solutions.informed_heuristics_strategies import RBFS
+
+rbfs = RBFS(environment=environment, show_movements=True)
+solution = rbfs.solution()
+
+print(f"Goal found: {solution[0]}\nSteps Taken: {solution[1]}\nGoal Coordenates: {solution[2]}")
+
+#"""
+

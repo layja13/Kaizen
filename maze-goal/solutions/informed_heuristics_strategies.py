@@ -118,6 +118,7 @@ class IDA(MazeSolverBase): # Iterative deepening A*
         y, x = start
         
         if self.game_on_abstract(y, x):
+            self.expanded_nodes += 1 
             h = self.manhattan_distance_abstract(y, x)
             f = h + g
             min_threshold_exceeded = float("inf")
@@ -172,8 +173,6 @@ class IDA(MazeSolverBase): # Iterative deepening A*
 
             if threshold == float("inf"):
                 return False, False, False
-
-
 
 
 class RBFS(): # Recursive best-first search 
