@@ -183,6 +183,10 @@ class IDS(MazeSolverBase): # Iterative deepening search
 
 
 
-class BidirectionalSearch():
-    def __init__(self):
+class BidirectionalSearch(MazeSolverBase):
+    def __init__(self, environment, show_movements=False):
+        self.starting_position = (self.agent_position_y, self.agent_position_x)
+
+    
+    def solution(self):
         pass

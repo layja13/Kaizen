@@ -200,7 +200,7 @@ from solutions.informed_heuristics_strategies import RBFS
 rbfs = RBFS(environment=environment, show_movements=True)
 solution = rbfs.solution()
 
-print(f"Goal found: {solution[0]}\nSteps Taken: {solution[1]}\nGoal Coordenates: {solution[2]}")
+print(f"Goal found: {solution[0]}\nf: {solution[1]}")
 
 #"""
 

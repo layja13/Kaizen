@@ -175,6 +175,65 @@ class IDA(MazeSolverBase): # Iterative deepening A*
                 return False, False, False
 
 
-class RBFS(): # Recursive best-first search 
-    def __init__(self):
-        pass
+class RBFS(MazeSolverBase): # Recursive best-first search 
+    def __init__(self, environment, show_movements=False):
+        super().__init__(environment)
+        self.environment = environment
+        self.show_movements = show_movements
+
+    def solution(self):
+        g = 0
+        h = self.manhattan_distance_abstract(self.agent_position_y, self.agent_position_x)
+
+        result, f = self.search(self.agent_position_y, self.agent_position_x, h + g, g, float("inf"))
+
+        return result, f
+    
+    def search(self, y, x, f, g, f_limit):
+        successors = []
+
+        if self.environment.environment[y][x] == "G":
+            return True, (y, x)
+
+        if self.show_movements:
+            self.environment.environment[y][x] = "X"
+            for capa in self.environment.environment:
+                print(capa)
+            print("\n\n")
+        
+        for dy, dx in self.actions:
+            new_y = dy + y 
+            new_x = dx + x
+            if self.game_on_abstract(new_y, new_x):
+                child_g = g + 1
+                child_f = self.manhattan_distance_abstract(new_y, new_x) + child_g
+                child_f = max(child_f, f)
+
+                successors.append([new_y, new_x, child_f, child_g])
+        
+        while True:
+            successors.sort(key=lambda child:child[2])
+
+            best_y, best_x, best_f, best_g = successors[0]
+
+            if best_f > f_limit:
+                return None, best_f
+
+            if len(successors)>1:
+                alternative_f = successors[1][2]
+            else:
+                alternative_f = float("inf")
+
+            result, best_f = self.search(best_y, best_x, best_f, best_g, min(f_limit, alternative_f))
+            
+            successors[0][2] = best_f
+
+            if result != None:
+                return result, best_f
+            
+        
+
+
+
+
+
