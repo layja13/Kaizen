@@ -122,7 +122,6 @@ class IDA(MazeSolverBase): # Iterative deepening A*
             h = self.manhattan_distance_abstract(y, x)
             f = h + g
             min_threshold_exceeded = float("inf")
-            self.expanded_nodes += 1
 
             if f > threshold:
                 return None, f, None
@@ -182,16 +181,17 @@ class RBFS(MazeSolverBase): # Recursive best-first search
         self.show_movements = show_movements
 
     def solution(self):
+        self.best_cost = {(self.agent_position_y, self.agent_position_x):0}
         g = 0
         h = self.manhattan_distance_abstract(self.agent_position_y, self.agent_position_x)
+        f = g + h 
 
-        result, f = self.search(self.agent_position_y, self.agent_position_x, h + g, g, float("inf"))
+        found, f = self.rbfs(self.agent_position_y, self.agent_position_x, f, g, float("inf"))
 
-        return result, f
+        return found, f
     
-    def search(self, y, x, f, g, f_limit):
-        successors = []
-
+    def rbfs(self, y, x, f, g, f_limit):
+        
         if self.environment.environment[y][x] == "G":
             return True, (y, x)
 
@@ -199,17 +199,29 @@ class RBFS(MazeSolverBase): # Recursive best-first search
             self.environment.environment[y][x] = "X"
             for capa in self.environment.environment:
                 print(capa)
-            print("\n\n")
+            print("\n\n")     
         
-        for dy, dx in self.actions:
-            new_y = dy + y 
-            new_x = dx + x
-            if self.game_on_abstract(new_y, new_x):
-                child_g = g + 1
-                child_f = self.manhattan_distance_abstract(new_y, new_x) + child_g
-                child_f = max(child_f, f)
+        successors = []
+        child_g = g + 1
 
-                successors.append([new_y, new_x, child_f, child_g])
+        for dy, dx in self.actions:
+            child_y = dy + y
+            child_x = dx + x
+
+            if self.game_on_abstract(child_y, child_x) != True:
+                continue
+
+            if (child_y, child_x) not in self.best_cost or self.best_cost[(child_y, child_x)] > child_g:
+                self.best_cost[(child_y, child_x)] = child_g
+
+                h = self.manhattan_distance_abstract(child_y, child_x)
+                child_f = h + child_g
+                child_f = max(f, child_f)
+                child = [child_y, child_x, child_f, child_g]
+                successors.append(child)
+            
+        if not successors:
+            return False, float("inf")
         
         while True:
             successors.sort(key=lambda child:child[2])
@@ -217,23 +229,28 @@ class RBFS(MazeSolverBase): # Recursive best-first search
             best_y, best_x, best_f, best_g = successors[0]
 
             if best_f > f_limit:
-                return None, best_f
+                return False, best_f
 
-            if len(successors)>1:
+            if len(successors) > 1:
                 alternative_f = successors[1][2]
             else:
                 alternative_f = float("inf")
-
-            result, best_f = self.search(best_y, best_x, best_f, best_g, min(f_limit, alternative_f))
             
+            found, best_f = self.rbfs(best_y, best_x, best_f, best_g, min(f_limit, alternative_f))
+
             successors[0][2] = best_f
 
-            if result != None:
-                return result, best_f
+            if found:
+                return found, best_f
             
+            
+
         
 
 
+    
 
 
+            
 
+        

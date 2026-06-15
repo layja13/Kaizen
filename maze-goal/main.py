@@ -183,8 +183,8 @@ ida = IDA(environment=environment, show_movements=True)
 solution = ida.solution()
 
 print(f"Goal found: {solution[0]}\nSteps Taken: {solution[1]}\nGoal Coordenates: {solution[2]}\nExpanded Nodes: {ida.expanded_nodes}")
-
 """
+
 
 
 # ---------------------------------------------------------------------
@@ -200,7 +200,10 @@ from solutions.informed_heuristics_strategies import RBFS
 rbfs = RBFS(environment=environment, show_movements=True)
 solution = rbfs.solution()
 
-print(f"Goal found: {solution[0]}\nf: {solution[1]}")
-
+if solution[0]:
+    y_final, x_final = solution[1]
+    print(f"Goal found: {True}\nGoal Coordenates: ({y_final}, {x_final})")
+else:
+    print(f"Goal found: {False}")
 #"""
 
